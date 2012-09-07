@@ -1,24 +1,22 @@
 var $ = require('jquery');
 var exec = require('child_process').exec;
 
-
-
 var $div = $('<div />');
 var anim = function(name, from, to, focus, duration) {
-duration = +duration;
-if(+focus) {
-var command = 'wmctrl -x -a "' + name + '"';
-exec(command);
-}
-
-$div.css({left: from + 'px'}).animate({left: to + 'px'}, {
-	step: function(now) {
-		now = Math.round(+now);
-		var command = 'wmctrl -x -r "' + name + '" -e 0,-1,-1,-1,' + (+now);
+	duration = +duration;
+	if(+focus) {
+		var command = 'wmctrl -x -a "' + name + '"';
 		exec(command);
-	},
-	duration: duration
-});
+	}
+
+	$div.css({left: from + 'px'}).animate({left: to + 'px'}, {
+		step: function(now) {
+			now = Math.round(+now);
+			var command = 'wmctrl -x -r "' + name + '" -e 0,-1,-1,-1,' + (+now);
+			exec(command);
+		},
+		duration: duration
+	});
 
 };
 
